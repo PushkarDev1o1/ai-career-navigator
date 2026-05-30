@@ -6,7 +6,7 @@ export default function Home() {
     <main style={styles.container}>
       {/* Hero Section */}
       <section style={styles.heroSection}>
-        <div style={styles.badge}>Powered by GenAI</div>
+        <div style={styles.badge}>Powered by Gen AI</div>
         <h1 style={styles.mainTitle}>
           Navigate Your Career with <br />
           <span style={styles.gradientText}>AI Precision</span>
