@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -48,10 +48,31 @@ const SUGGESTED_INDUSTRIES = [
   "Education", "E-commerce", "Clean Energy & Sustainability", "Entertainment & Media"
 ];
 
-export default function AssessmentPage() {
+function AssessmentContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<AssessmentData>(INITIAL_DATA);
+
+  // Read query params on load to prefill values
+  useEffect(() => {
+    const prefillCareer = searchParams.get("prefill_career");
+    const prefillSkillsRaw = searchParams.get("prefill_skills");
+
+    if (prefillCareer || prefillSkillsRaw) {
+      setFormData((prev) => {
+        const nextData = { ...prev };
+        if (prefillCareer) {
+          nextData.careerGoals = `Target Career: ${prefillCareer}. I want to explore transition timeline, skill requirements, and resources for this position.`;
+        }
+        if (prefillSkillsRaw) {
+          const parsedSkills = prefillSkillsRaw.split(",").filter(Boolean);
+          nextData.skills = Array.from(new Set([...prev.skills, ...parsedSkills]));
+        }
+        return nextData;
+      });
+    }
+  }, [searchParams]);
   const [skillInput, setSkillInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -419,6 +440,21 @@ export default function AssessmentPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function AssessmentPage() {
+  return (
+    <Suspense fallback={
+      <main style={styles.mainContainer}>
+        <div style={styles.header}>
+          <h1 style={styles.title}>Loading Assessment...</h1>
+          <p style={styles.subtitle}>Setting up personalized questionnaire...</p>
+        </div>
+      </main>
+    }>
+      <AssessmentContent />
+    </Suspense>
   );
 }
 
