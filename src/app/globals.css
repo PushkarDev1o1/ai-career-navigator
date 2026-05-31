@@ -2,10 +2,10 @@
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
   
-  /* Color Palette - Cyber Indigo & Deep Slate Theme */
-  --bg-primary: #0a0b10;
-  --bg-secondary: #121420;
-  --bg-tertiary: #1b1e32;
+  /* Color Palette - Ultra-Deep Night Mode Theme */
+  --bg-primary: #020204; /* Pitch black space */
+  --bg-secondary: #09090e; /* Extremely dark card backdrop */
+  --bg-tertiary: #111219; /* High-contrast card border elements */
   
   --accent-primary: #6366f1; /* Indigo */
   --accent-secondary: #a855f7; /* Purple */
@@ -15,10 +15,10 @@
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(99, 102, 241, 0.2);
+  --border-color: rgba(255, 255, 255, 0.05);
+  --border-glow: rgba(99, 102, 241, 0.15);
   
-  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --card-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.7);
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -38,7 +38,7 @@ body {
 body {
   min-height: 100vh;
   color: var(--text-primary);
-  background: radial-gradient(circle at 50% 0%, #1c1d30 0%, var(--bg-primary) 70%);
+  background: radial-gradient(circle at 50% 0%, #0c0a18 0%, var(--bg-primary) 100%);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
